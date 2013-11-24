@@ -19,8 +19,4 @@ fi
 # exec startxfce4
 # ...or the Window Manager of your choice
 
-# use normal mouse ptr icon
-xsetroot -cursor_name left_ptr
-
-# start xmonad
 exec /usr/bin/xmonad
