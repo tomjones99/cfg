@@ -1,17 +1,19 @@
 Config { font = "xft:inconsolata:size=10:antialias=true"
-       , bgColor = "#002b36"
+       , bgColor = "#000000"
        , fgColor = "#657b83"
        , border = NoBorder
        , position = Top
        , lowerOnStart = True
        , hideOnStart = False
-       , persistent = True
-       , commands = [ Run StdinReader 
+       , commands = [ Run StdinReader
+                    , Run CoreTemp ["-L", "40", "-H", "60"] 50
+                    , Run DynNetwork ["-t", "<dev>: <rx>KB|<tx>KB"] 5
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
-                    , Run Date "<fc=#93a1a1>%a %b %_d %Y %H:%M</fc>" "date" 10
+                    , Run Date "%a %b %_d %Y %H:%M" "date" 10
+                    , Run Weather "CYVR" ["-t", "<tempC>C"] 3600
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{  %cpu%  %memory%  %date%"
+       , template = "%StdinReader% }{ <fc=#ffa04d>|</fc> %coretemp%  %dynnetwork% %cpu%  %memory% <fc=#ffa04d>|</fc> %CYVR% %date%"
        }

@@ -1,4 +1,5 @@
 import XMonad
+import XMonad.Actions.SpawnOn
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 
@@ -9,7 +10,10 @@ main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
 myBar = "xmobar"
 
 -- PP
-myPP = xmobarPP { ppCurrent = xmobarColor "492942" "" . wrap "<" ">" }
+myPP = xmobarPP { ppCurrent = xmobarColor "#ff0000" "" . wrap "<" ">"
+                , ppLayout = xmobarColor "#ff0000" ""
+                , ppSep = xmobarColor "#93a1a1" "" " | "
+                }
 
 -- show/hide status bar
 toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
@@ -20,11 +24,18 @@ myManageHook = composeAll
     , manageDocks
     ]
 
+-- workspaces
+myWorkspaces = ["1:dev", "2:web", "3:mail", "4", "5", "6", "7", "8", "9" ]
+
+-- launch programs on startup
+myStartupHook = do
+    spawnOn "2:web" "chromium"
+
 -- config
 myConfig = defaultConfig
-    {
-    workspaces = ["1:dev", "2:web", "3:mail" ],
-    manageHook = myManageHook <+> manageHook defaultConfig
+    { workspaces = myWorkspaces
+    , manageHook = myManageHook <+> manageHook defaultConfig
+    , startupHook = myStartupHook
     }
 
 
