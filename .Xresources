@@ -1,7 +1,4 @@
-XTerm*locale: true
-XTerm*termname: xterm-256color
-XTerm*saveLines: 4096
-
+URxvt.scrollBar: false
 
 ! Solarized color scheme for the X Window System
 !
